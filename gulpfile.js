@@ -2,6 +2,7 @@ var gulp = require('gulp')
 var sass = require("gulp-sass");
 var autoprefixer = require("gulp-autoprefixer");
 var browser = require("browser-sync");
+var plumber = require("gulp-plumber");
 
 gulp.task("server", function() {
   browser({
@@ -13,6 +14,7 @@ gulp.task("server", function() {
 
 gulp.task('sass', function() {
   gulp.src('sass/**/*.scss')
+      .pipe(plumber())
       .pipe(sass())
       .pipe(autoprefixer())
       .pipe(gulp.dest('./css'))
