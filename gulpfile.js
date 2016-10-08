@@ -3,6 +3,7 @@ var haml = require('gulp-haml');
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var babel = require('gulp-babel');
+var sourcemaps = require('gulp-sourcemaps')
 var browser = require('browser-sync');
 var plumber = require('gulp-plumber');
 
@@ -34,7 +35,9 @@ gulp.task('sass', function() {
 gulp.task('babel', function() {
   gulp.src('es/**/*.es')
       .pipe(plumber())
+      .pipe(sourcemaps.init())
       .pipe(babel())
+      .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest('./js'))
       .pipe(browser.reload({stream:true}));
 });
