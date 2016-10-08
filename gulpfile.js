@@ -4,6 +4,7 @@ var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var babel = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps')
+var uglify = require('gulp-uglify');
 var browser = require('browser-sync');
 var plumber = require('gulp-plumber');
 
@@ -37,6 +38,7 @@ gulp.task('babel', function() {
       .pipe(plumber())
       .pipe(sourcemaps.init())
       .pipe(babel())
+      .pipe(uglify())
       .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest('./js'))
       .pipe(browser.reload({stream:true}));
