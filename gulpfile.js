@@ -10,7 +10,7 @@ var plumber = require('gulp-plumber');
 gulp.task('server', function() {
   browser({
     server: {
-      baseDir: './'
+      baseDir: './public_html'
     }
   });
 });
@@ -19,7 +19,7 @@ gulp.task('haml', function() {
   gulp.src('assets/htmls/*.haml')
       .pipe(plumber())
       .pipe(haml())
-      .pipe(gulp.dest('./'))
+      .pipe(gulp.dest('./public_html'))
       .pipe(browser.reload({stream:true}));
 });
 
@@ -28,7 +28,7 @@ gulp.task('sass', function() {
       .pipe(plumber())
       .pipe(sass())
       .pipe(autoprefixer())
-      .pipe(gulp.dest('./css'))
+      .pipe(gulp.dest('./public_html/css'))
       .pipe(browser.reload({stream:true}));
 });
 
@@ -54,7 +54,7 @@ gulp.task('webpack', function() {
           ]
         }
       }))
-      .pipe(gulp.dest('./js'))
+      .pipe(gulp.dest('./public_html/js'))
       .pipe(browser.reload({stream:true}));
 });
 
