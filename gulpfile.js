@@ -17,7 +17,7 @@ gulp.task('server', function() {
 });
 
 gulp.task('haml', function() {
-  gulp.src('./haml/*.haml')
+  gulp.src('assets/htmls/*.haml')
       .pipe(plumber())
       .pipe(haml())
       .pipe(gulp.dest('./'))
@@ -25,7 +25,7 @@ gulp.task('haml', function() {
 });
 
 gulp.task('sass', function() {
-  gulp.src('sass/**/*.scss')
+  gulp.src('assets/stylesheets/**/*.scss')
       .pipe(plumber())
       .pipe(sass())
       .pipe(autoprefixer())
@@ -34,7 +34,7 @@ gulp.task('sass', function() {
 });
 
 gulp.task('babel', function() {
-  gulp.src('es/**/*.es')
+  gulp.src('assets/javascripts/**/*.js')
       .pipe(plumber())
       .pipe(sourcemaps.init())
       .pipe(babel())
@@ -44,8 +44,8 @@ gulp.task('babel', function() {
       .pipe(browser.reload({stream:true}));
 });
 
-gulp.task('default', ['server'], function() {
-  gulp.watch('sass/**/*.scss',['sass']);
-  gulp.watch('es/**/*.es',['babel']);
-  gulp.watch('haml/**/*.haml',['haml']);
+gulp.task('default', ['server', 'sass', 'babel', 'haml'], function() {
+  gulp.watch('assets/**/*.scss',['sass']);
+  gulp.watch('assets/**/*.js',['babel']);
+  gulp.watch('assets/**/*.haml',['haml']);
 });
