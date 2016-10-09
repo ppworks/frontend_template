@@ -7,6 +7,7 @@ var browser = require('browser-sync');
 var plumber = require('gulp-plumber');
 var runSequence = require('run-sequence');
 var rev  = require('gulp-rev');
+var revReplace = require('gulp-rev-replace');
 var del = require('del');
 
 gulp.task('server', function() {
@@ -65,16 +66,23 @@ gulp.task('rev', () => {
   return gulp.src('./public/**/*.+(js|css|png|gif|jpg|jpeg|svg|woff)')
     .pipe(rev())
     .pipe(gulp.dest('./dist'))
-    .pipe(rev.manifest())
+    .pipe(rev.manifest('rev-manifest.json', { merge: true }))
     .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('rev:replace', () => {
+  var manifest = gulp.src('./dist/rev-manifest.json');
+  return gulp.src('./dist/**/*.+(html|css|js)')
+    .pipe(revReplace({manifest: manifest}))
+    .pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('clean', function(cb) {
   return del(['dist/*'])
 });
 
-gulp.task('default', runSequence('clean', ['server', 'sass', 'webpack', 'haml'], 'rev'), function() {
-  gulp.watch('assets/**/*.scss', runSequence('sass', 'rev'));
-  gulp.watch('assets/**/*.js', runSequence('webpack', 'rev'));
-  gulp.watch('assets/**/*.haml', runSequence('haml', 'rev'));
+gulp.task('default', runSequence('clean', ['server', 'sass', 'webpack', 'haml']), function() {
+  gulp.watch('assets/**/*.scss', runSequence('sass', 'rev', 'rev:replace'));
+  gulp.watch('assets/**/*.js', runSequence('webpack', 'rev', 'rev:replace'));
+  gulp.watch('assets/**/*.haml', runSequence('haml', 'rev:replace'));
 });
