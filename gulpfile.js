@@ -5,6 +5,9 @@ var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var browser = require('browser-sync');
 var plumber = require('gulp-plumber');
+var runSequence = require('run-sequence');
+var rev  = require('gulp-rev');
+var del = require('del');
 
 gulp.task('server', function() {
   browser({
@@ -15,15 +18,16 @@ gulp.task('server', function() {
 });
 
 gulp.task('haml', function() {
-  gulp.src('assets/htmls/*.haml')
+  return gulp.src('assets/htmls/*.haml')
       .pipe(plumber())
       .pipe(haml())
       .pipe(gulp.dest('./public'))
+      .pipe(gulp.dest('./dist'))
       .pipe(browser.reload({stream:true}));
 });
 
 gulp.task('sass', function() {
-  gulp.src('assets/stylesheets/**/*.scss')
+  return gulp.src('assets/stylesheets/**/*.scss')
       .pipe(plumber())
       .pipe(sass())
       .pipe(autoprefixer())
@@ -32,7 +36,7 @@ gulp.task('sass', function() {
 });
 
 gulp.task('webpack', function() {
-  gulp.src('assets/javascripts/**/*.js')
+  return gulp.src('assets/javascripts/**/*.js')
       .pipe(plumber())
       .pipe(webpack({
         entry: './assets/javascripts/app.js',
@@ -57,8 +61,20 @@ gulp.task('webpack', function() {
       .pipe(browser.reload({stream:true}));
 });
 
-gulp.task('default', ['server', 'sass', 'webpack', 'haml'], function() {
-  gulp.watch('assets/**/*.scss',['sass']);
-  gulp.watch('assets/**/*.js',['webpack']);
-  gulp.watch('assets/**/*.haml',['haml']);
+gulp.task('rev', () => {
+  return gulp.src('./public/**/*.+(js|css|png|gif|jpg|jpeg|svg|woff)')
+    .pipe(rev())
+    .pipe(gulp.dest('./dist'))
+    .pipe(rev.manifest())
+    .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('clean', function(cb) {
+  return del(['dist/*'])
+});
+
+gulp.task('default', runSequence('clean', ['server', 'sass', 'webpack', 'haml'], 'rev'), function() {
+  gulp.watch('assets/**/*.scss', runSequence('sass', 'rev'));
+  gulp.watch('assets/**/*.js', runSequence('webpack', 'rev'));
+  gulp.watch('assets/**/*.haml', runSequence('haml', 'rev'));
 });
