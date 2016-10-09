@@ -62,6 +62,12 @@ gulp.task('webpack', function() {
       .pipe(browser.reload({stream:true}));
 });
 
+gulp.task('image', function() {
+  return gulp.src('assets/images/**/*.+(png|gif|jpg|jpeg|svg|woff)')
+      .pipe(gulp.dest('./public/images'))
+      .pipe(browser.reload({stream:true}));
+});
+
 gulp.task('rev', () => {
   return gulp.src('./public/**/*.+(js|css|png|gif|jpg|jpeg|svg|woff)')
     .pipe(rev())
