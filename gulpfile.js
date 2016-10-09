@@ -88,7 +88,16 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('default', runSequence('clean', ['server', 'sass', 'webpack', 'haml']), function() {
-  gulp.watch('assets/**/*.scss', runSequence('sass', 'rev', 'rev:replace'));
-  gulp.watch('assets/**/*.js', runSequence('webpack', 'rev', 'rev:replace'));
-  gulp.watch('assets/**/*.haml', runSequence('haml', 'rev:replace'));
+  gulp.watch('assets/**/*.scss', function() {
+    runSequence('sass', 'rev', 'rev:replace');
+  });
+  gulp.watch('assets/**/*.js', function() {
+    runSequence('webpack', 'rev', 'rev:replace');
+  });
+  gulp.watch('assets/**/*.haml', function() {
+    runSequence('haml', 'rev', 'rev:replace');
+  });
+  gulp.watch('assets/**/*.+(png|gif|jpg|jpeg|svg|woff)', function() {
+    runSequence('image', 'rev', 'rev:replace');
+  });
 });
