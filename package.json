@@ -18,7 +18,6 @@
     "gulp-haml": "^0.1.6",
     "gulp-plumber": "^1.1.0",
     "gulp-sass": "^2.3.2",
-    "gulp-sourcemaps": "^1.6.0",
     "gulp-webpack": "^1.5.0"
   },
   "dependencies": {

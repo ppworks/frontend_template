@@ -3,7 +3,6 @@ var webpack = require('gulp-webpack');
 var haml = require('gulp-haml');
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
-var sourcemaps = require('gulp-sourcemaps')
 var browser = require('browser-sync');
 var plumber = require('gulp-plumber');
 
