@@ -1,10 +1,9 @@
-var gulp = require('gulp')
+var gulp = require('gulp');
+var webpack = require('gulp-webpack');
 var haml = require('gulp-haml');
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
-var babel = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps')
-var uglify = require('gulp-uglify');
 var browser = require('browser-sync');
 var plumber = require('gulp-plumber');
 
@@ -33,19 +32,34 @@ gulp.task('sass', function() {
       .pipe(browser.reload({stream:true}));
 });
 
-gulp.task('babel', function() {
+gulp.task('webpack', function() {
   gulp.src('assets/javascripts/**/*.js')
       .pipe(plumber())
-      .pipe(sourcemaps.init())
-      .pipe(babel())
-      .pipe(uglify())
-      .pipe(sourcemaps.write('.'))
+      .pipe(webpack({
+        entry: './assets/javascripts/app.js',
+        output: {
+          filename: 'app.js'
+        },
+        devtool: 'inline-source-map',
+        module: {
+          loaders: [{
+              test: /\.js$/,
+              exclude: /node_modules/,
+              loader: 'babel-loader',
+              query: {
+                comments: false,
+                compact: true
+              }
+            }
+          ]
+        }
+      }))
       .pipe(gulp.dest('./js'))
       .pipe(browser.reload({stream:true}));
 });
 
-gulp.task('default', ['server', 'sass', 'babel', 'haml'], function() {
+gulp.task('default', ['server', 'sass', 'webpack', 'haml'], function() {
   gulp.watch('assets/**/*.scss',['sass']);
-  gulp.watch('assets/**/*.js',['babel']);
+  gulp.watch('assets/**/*.js',['webpack']);
   gulp.watch('assets/**/*.haml',['haml']);
 });

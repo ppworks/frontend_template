@@ -1,5 +1,6 @@
 h1 {
-  color: black;
+  color: white;
+  background-color: $main-color;
   transition: 200ms ease-out transform;
   &:hover {
     color: blue;
