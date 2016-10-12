@@ -1,0 +1,34 @@
+html {
+  @include font-main;
+  font-weight: 100;
+}
+
+h1 {
+  font-size: 2.0rem;
+}
+
+p {
+  font-size: 1.6rem;
+}
+
+body {
+  position: relative;
+}
+
+.lato {
+  font-family: Lato;
+  font-weight: 400;
+
+  &.thin {
+    font-weight: 100;
+  }
+
+  &.light {
+    font-weight: 300;
+  }
+}
+
+.ppworks {
+  @extend .lato;
+  @extend .thin;
+}

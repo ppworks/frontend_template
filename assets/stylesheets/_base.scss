@@ -1,9 +1,171 @@
-h1 {
-  color: white;
-  background-color: $main-color;
-  transition: 200ms ease-out transform;
-  &:hover {
-    color: blue;
-    transform: translate(10px,0);
+html {
+  font-family: Helvetica, Arial,'Meiryo','メイリオ','ヒラギノ角ゴ Pro w3','Hiragino Kaku Gothic Pro,osaka','ＭＳ Ｐゴシック',sans-serif;
+  font-size: 62.5%;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 2;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+@media (max-width: 1024px) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.6;
   }
+}
+
+@media (max-width: 740px) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.4;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary,
+div,
+span,
+p,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+table,
+tr,
+th,
+td,
+a,
+img,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+p,
+li,
+dl,
+table {
+  line-height: 2.0;
+  margin-top: 0;
+  margin-bottom: 0;
+  word-wrap: break-word;
+  word-break: break-strict;
+
+  line-break: strict;
+}
+
+small {
+  font-size: .9rem;
+}
+
+@media (max-width: 1024px) {
+  p,
+  li,
+  dl,
+  table {
+    line-height: 1.7;
+  }
+}
+
+@media (max-width: 740px) {
+  p,
+  li,
+  dl,
+  table {
+    line-height: 1.5;
+  }
+}
+
+tr {
+  word-break: break-all;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: bottom;
+}
+
+a {
+  transition: .3s;
+  text-decoration: none;
+  background: transparent;
+}
+
+a:focus {
+  outline: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.clearfix:after {
+  display: block;
+  clear: both;
+  content: '';
+}
+
+textarea {
+  overflow: auto;
+  resize: vertical;
+  vertical-align: top;
+}
+
+select option {
+  padding: 0 5px;
+}
+
+form label {
+  cursor: pointer;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
 }

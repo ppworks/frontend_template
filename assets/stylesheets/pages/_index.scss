@@ -1,0 +1,11 @@
+#pages-index {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: url('/images/tori.png') no-repeat center center;
+  background-size: contain;
+  h1 {
+    font-size: 10vw;
+  }
+}
